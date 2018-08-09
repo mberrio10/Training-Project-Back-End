@@ -16,3 +16,4 @@ $api = new \WPAS\Controller\WPASAPIController([
  * Then you can start adding each endpoint one by one
 */
 $api->get([ 'path' => '/training', 'controller' => 'TrainingController:getAllTrainings' ]); 
+$api->get([ 'path' => '/workout', 'controller' => 'WorkoutController:getAllworkouts', 'capability' => 'activate_plugins' ]); 

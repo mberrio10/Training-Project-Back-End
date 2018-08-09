@@ -17,3 +17,12 @@ $typeManager->newType([
         ]
     ])->register();
 
+$typeManager->newType([
+        'type' => 'workout', 
+        'class' => 'Workout',
+        'options' => [
+        'supports' =>['title','editor','thumbnail'],
+        'taxonomies' => ['post_tag']
+        ]
+    ])->register();
+
