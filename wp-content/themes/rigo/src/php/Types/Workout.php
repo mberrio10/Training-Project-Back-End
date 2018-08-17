@@ -14,7 +14,7 @@ class Workout extends BasePostType{
     function add_workout_fields() {
         acf_add_local_field_group(array(
         	'key' => 'workout_group',
-        	'title' => 'Workout Group',
+        	'title' => 'Workout Custom Fields',
         	'fields' => array(
         		array(
         			'key' => 'muscle_type',

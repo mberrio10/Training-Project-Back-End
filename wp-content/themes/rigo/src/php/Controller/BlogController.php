@@ -2,6 +2,7 @@
 namespace Rigo\Controller;
 
 use Rigo\Types\Blog;
+use WP_REST_Response;
 
 class BlogController{
     
@@ -12,7 +13,7 @@ class BlogController{
     }
     
     public function getAllBlogs(){
-        $query = Workout::all([ 'post_status' => 'publish' ]);
+        $query = Blog::all([ 'post_status' => 'publish' ]);
         
         if ( $query->have_posts() ) {
         	while ( $query->have_posts() ) {
@@ -25,6 +26,9 @@ class BlogController{
         		}
         		//Include the Featured Image
         		$query->post->thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $query->post->ID ), "large" );
+        		
+        		//Include the Categories
+        		$query->post->category = get_the_terms( $query->post->ID, "category" );
         	}
         	/* Restore original Post Data */
         	wp_reset_postdata();

@@ -11,10 +11,10 @@ $api = new \WPAS\Controller\WPASAPIController([
     'allow-methods' => 'GET,POST,PUT' 
 ]);
 
-
 /**
  * Then you can start adding each endpoint one by one
 */
+<<<<<<< HEAD
 
 $api->get([ 
     'path' => '/sample', 
@@ -25,11 +25,13 @@ $api->put([
     'path' => '/sample', 
     'controller' => 'SampleController:putNewSample' 
 ]);
+=======
+>>>>>>> 7c4bc7d0ee00371c3c06e85eb76b55ac41a0353a
 
 $api->get([
     'path' => '/workout', 
     'controller' => 'WorkoutController:getAllWorkouts',
-    'capability' => 'activate_plugins'
+    //'capability' => 'activate_plugins'
 ]);
 
 $api->get([ 
@@ -42,7 +44,14 @@ $api->put([
     'controller' => 'MemberController:putNewMember' 
 ]); 
 
+<<<<<<< HEAD
 $api->get([ 
     'path' => '/blog', 
     'controller' => 'BlogController:getAllBlogs' 
 ]); 
+=======
+$api->put([ 
+    'path' => '/users', 
+    'controller' => 'UserController:putNewUser' 
+]);
+>>>>>>> 7c4bc7d0ee00371c3c06e85eb76b55ac41a0353a

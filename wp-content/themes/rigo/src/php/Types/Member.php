@@ -12,9 +12,33 @@ class Member extends BasePostType{
 
     function add_member_fields() {
         acf_add_local_field_group(array(
+<<<<<<< HEAD
         	'key' => 'member_profile',
         	'title' => 'Member Profile',
+=======
+        	'key' => 'member_information',
+        	'title' => 'Member Information',
+>>>>>>> 7c4bc7d0ee00371c3c06e85eb76b55ac41a0353a
         	'fields' => array(
+        		array(
+        			'key' => 'user_name',
+        			'label' => 'User Name',
+        			'name' => 'user_name',
+        			'type' => 'text',
+        			'instructions' => '',
+        			'required' => 0,
+        			'conditional_logic' => 0,
+        			'wrapper' => array(
+        				'width' => '',
+        				'class' => '',
+        				'id' => '',
+        			),
+        			'default_value' => '',
+        			'placeholder' => '',
+        			'prepend' => '',
+        			'append' => '',
+        			'maxlength' => '',
+        		),
         		array(
         			'key' => 'first_name',
         			'label' => 'First Name',
@@ -523,6 +547,7 @@ class Member extends BasePostType{
         ));
         
         acf_add_local_field_group(array(
+<<<<<<< HEAD
         	'key' => 'group_5b761fe90abb5',
         	'title' => 'Member Physical',
         	'fields' => array(
@@ -531,6 +556,16 @@ class Member extends BasePostType{
         			'label' => 'Fracture',
         			'name' => 'fracture',
         			'type' => 'text',
+=======
+        	'key' => 'weekly_wourkout_plan',
+        	'title' => 'Weekly Workout Plan',
+        	'fields' => array(
+        		array(
+        			'key' => 'field_5b737d0d192aa',
+        			'label' => 'Monday',
+        			'name' => 'monday',
+        			'type' => 'relationship',
+>>>>>>> 7c4bc7d0ee00371c3c06e85eb76b55ac41a0353a
         			'instructions' => '',
         			'required' => 0,
         			'conditional_logic' => 0,
@@ -539,6 +574,7 @@ class Member extends BasePostType{
         				'class' => '',
         				'id' => '',
         			),
+<<<<<<< HEAD
         			'default_value' => '',
         			'placeholder' => '',
         			'prepend' => '',
@@ -607,6 +643,26 @@ class Member extends BasePostType{
         			'label' => 'Lower Back Injury',
         			'name' => 'lower_back_injury',
         			'type' => 'text',
+=======
+        			'post_type' => array(
+        				0 => 'blog',
+        			),
+        			'taxonomy' => array(
+        			),
+        			'filters' => array(
+        				0 => 'taxonomy',
+        			),
+        			'elements' => '',
+        			'min' => '',
+        			'max' => '',
+        			'return_format' => 'object',
+        		),
+        		array(
+        			'key' => 'field_5b737e430e46a',
+        			'label' => 'Tuesday',
+        			'name' => 'tuesday',
+        			'type' => 'relationship',
+>>>>>>> 7c4bc7d0ee00371c3c06e85eb76b55ac41a0353a
         			'instructions' => '',
         			'required' => 0,
         			'conditional_logic' => 0,
@@ -615,6 +671,7 @@ class Member extends BasePostType{
         				'class' => '',
         				'id' => '',
         			),
+<<<<<<< HEAD
         			'default_value' => '',
         			'placeholder' => '',
         			'prepend' => '',
@@ -683,6 +740,26 @@ class Member extends BasePostType{
         			'label' => 'Physical Active',
         			'name' => 'physical_active',
         			'type' => 'text',
+=======
+        			'post_type' => array(
+        				0 => 'blog',
+        			),
+        			'taxonomy' => array(
+        			),
+        			'filters' => array(
+        				0 => 'taxonomy',
+        			),
+        			'elements' => '',
+        			'min' => '',
+        			'max' => '',
+        			'return_format' => 'object',
+        		),
+        		array(
+        			'key' => 'field_5b737e580e46b',
+        			'label' => 'Wednesday',
+        			'name' => 'wednesday',
+        			'type' => 'relationship',
+>>>>>>> 7c4bc7d0ee00371c3c06e85eb76b55ac41a0353a
         			'instructions' => '',
         			'required' => 0,
         			'conditional_logic' => 0,
@@ -691,6 +768,7 @@ class Member extends BasePostType{
         				'class' => '',
         				'id' => '',
         			),
+<<<<<<< HEAD
         			'default_value' => '',
         			'placeholder' => '',
         			'prepend' => '',
@@ -740,6 +818,26 @@ class Member extends BasePostType{
         			'label' => 'Purpose of the training',
         			'name' => 'purpose_of_the_training',
         			'type' => 'text',
+=======
+        			'post_type' => array(
+        			    0 => 'blog',
+        			),
+        			'taxonomy' => array(
+        			),
+        			'filters' => array(
+        				0 => 'taxonomy',
+        			),
+        			'elements' => '',
+        			'min' => '',
+        			'max' => '',
+        			'return_format' => 'object',
+        		),
+        		array(
+        			'key' => 'field_5b737e6a0e46c',
+        			'label' => 'Thursday',
+        			'name' => 'thursday',
+        			'type' => 'relationship',
+>>>>>>> 7c4bc7d0ee00371c3c06e85eb76b55ac41a0353a
         			'instructions' => '',
         			'required' => 0,
         			'conditional_logic' => 0,
@@ -748,6 +846,7 @@ class Member extends BasePostType{
         				'class' => '',
         				'id' => '',
         			),
+<<<<<<< HEAD
         			'default_value' => '',
         			'placeholder' => '',
         			'prepend' => '',
@@ -783,6 +882,26 @@ class Member extends BasePostType{
         			'label' => 'Whats your goal',
         			'name' => 'whats_your_goal',
         			'type' => 'text',
+=======
+        			'post_type' => array(
+        				0 => 'blog',
+        			),
+        			'taxonomy' => array(
+        			),
+        			'filters' => array(
+        				0 => 'taxonomy',
+        			),
+        			'elements' => '',
+        			'min' => '',
+        			'max' => '',
+        			'return_format' => 'object',
+        		),
+        		array(
+        			'key' => 'field_5b737e7c0e46d',
+        			'label' => 'Friday',
+        			'name' => 'friday',
+        			'type' => 'relationship',
+>>>>>>> 7c4bc7d0ee00371c3c06e85eb76b55ac41a0353a
         			'instructions' => '',
         			'required' => 0,
         			'conditional_logic' => 0,
@@ -791,11 +910,26 @@ class Member extends BasePostType{
         				'class' => '',
         				'id' => '',
         			),
+<<<<<<< HEAD
         			'default_value' => '',
         			'placeholder' => '',
         			'prepend' => '',
         			'append' => '',
         			'maxlength' => '',
+=======
+        			'post_type' => array(
+        				0 => 'blog',
+        			),
+        			'taxonomy' => array(
+        			),
+        			'filters' => array(
+        				0 => 'taxonomy',
+        			),
+        			'elements' => '',
+        			'min' => '',
+        			'max' => '',
+        			'return_format' => 'object',
+>>>>>>> 7c4bc7d0ee00371c3c06e85eb76b55ac41a0353a
         		),
         	),
         	'location' => array(
@@ -816,8 +950,12 @@ class Member extends BasePostType{
         	'active' => 1,
         	'description' => '',
         ));
+<<<<<<< HEAD
 
 
+=======
+        
+>>>>>>> 7c4bc7d0ee00371c3c06e85eb76b55ac41a0353a
     }
 
 }
