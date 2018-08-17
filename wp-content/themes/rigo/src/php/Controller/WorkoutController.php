@@ -2,6 +2,7 @@
 namespace Rigo\Controller;
 
 use Rigo\Types\Workout;
+use WP_REST_Response;
 
 class WorkoutController{
     

@@ -2,6 +2,7 @@
 namespace Rigo\Controller;
 
 use Rigo\Types\Member;
+use WP_REST_Response;
 
 class MemberController{
     
