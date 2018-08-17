@@ -8,7 +8,7 @@ WordPress boilerplate for 4Geeks Academy students
 
 Use the Breathecode CLI
 ```bash
-$ breathecode start:wordpress
+$ bc start:wordpress -r
 ```
 Or use git
 ```bash
@@ -33,4 +33,4 @@ Check your website, you are going to see a "Hello Rigoberto" message, you can lo
 This boilerplate comes with a sample API andpoint already, all api enpoints can be added into the **setup_api.php** file.
 
 ### - Adding Entities (Post Types)
-All the Post Types configuration is done in the **setup_types.php** file.# Training-Final-Project-Back-End
+All the Post Types configuration is done in the **setup_types.php** file.

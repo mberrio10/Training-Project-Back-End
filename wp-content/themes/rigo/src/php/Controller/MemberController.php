@@ -1,10 +1,10 @@
 <?php
 namespace Rigo\Controller;
 
-use Rigo\Types\Sample;
-use WP_REST_Response; 
+use Rigo\Types\Member;
+use WP_REST_Response;
 
-class SampleController{
+class MemberController{
     
     public function getHomeData(){
         return [
@@ -12,13 +12,8 @@ class SampleController{
         ];
     }
     
-    public function getDraftSamples(){
-        $query = Sample::all([ 'status' => 'draft' ]);
-        return $query->posts;
-    }
-    
-    public function getAllSamples(){
-        $query = Sample::all([ 'post_status' => 'publish' ]);
+    public function getAllMembers(){
+        $query = Member::all([ 'post_status' => 'publish' ]);
         
         if ( $query->have_posts() ) {
         	while ( $query->have_posts() ) {
@@ -39,17 +34,26 @@ class SampleController{
         return $query->posts;
     }
     
-    public function putNewSample( $request ){
+    public function putNewMember( $request ){
         $data = $request->get_json_params();
         //print_r( $data) ;
         //die;
         $post_arr = array(
-            'post_title'   => $data["post_title"],
-            'post_content' => $data["post_content"],
+            //'post_title'   => $data["post_title"],
+            //'post_content' => $data["post_content"],
             'post_status'  => 'publish',
-            'post_type'    => 'sample',
+            'post_type'    => 'member',
             'meta_input'   => array(
-                'additional_comments' => $data["additional_comments"],
+                'first_name' => $data["firstName"],
+                'last_name' => $data["lastName"],
+                'age' => $data["age"],
+                'email' => $data["email"],
+                'password' => $data["password"],
+                'repassword' => $data["repassword"],
+                'gender' => $data["gender"],
+                'height' => $data["height"],
+                'weight' => $data["weight"],
+                'ocupation' => $data["ocupation"],
             )
         );
         

@@ -1,9 +1,9 @@
 <?php
 namespace Rigo\Controller;
 
-use Rigo\Types\Training;
+use Rigo\Types\Blog;
 
-class TrainingController{
+class BlogController{
     
     public function getHomeData(){
         return [
@@ -11,8 +11,8 @@ class TrainingController{
         ];
     }
     
-    public function getAllTrainings(){
-        $query = Training::all([ 'post_status' => 'publish' ]);
+    public function getAllBlogs(){
+        $query = Workout::all([ 'post_status' => 'publish' ]);
         
         if ( $query->have_posts() ) {
         	while ( $query->have_posts() ) {
