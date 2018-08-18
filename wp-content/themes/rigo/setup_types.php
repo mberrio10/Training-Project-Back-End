@@ -8,19 +8,7 @@ $typeManager = new \WPAS\Types\PostTypesManager([ 'namespace' => 'Rigo\\Types\\'
 /**
  * Then, start adding your types one by one.
 */
-<<<<<<< HEAD
-$typeManager->newType([
-    'type' => 'sample', 
-    'class' => 'Sample',
-    'options' => [
-        'supports' =>['title','editor','thumbnail'],
-        'taxonomies' => ['post_tag']
-        ]
-    ])->register();
-
-=======
     
->>>>>>> 7c4bc7d0ee00371c3c06e85eb76b55ac41a0353a
 $typeManager->newType([
     'type' => 'blog', 
     'class' => 'Blog',
@@ -35,11 +23,7 @@ $typeManager->newType([
     'class' => 'Workout',
     'options' => [
         'supports' =>['title','editor','thumbnail'],
-<<<<<<< HEAD
-        'taxonomies' => ['post_tag']
-=======
         'taxonomies' => ['post_tag','category']
->>>>>>> 7c4bc7d0ee00371c3c06e85eb76b55ac41a0353a
     ]
 ])->register();
     

@@ -26,8 +26,6 @@ class BlogController{
         		}
         		//Include the Featured Image
         		$query->post->thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $query->post->ID ), "large" );
-        		
-        		//Include the Categories
         		$query->post->category = get_the_terms( $query->post->ID, "category" );
         	}
         	/* Restore original Post Data */
