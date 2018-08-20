@@ -34,52 +34,52 @@ add_theme_support( 'post-thumbnails' );
 // );
 
 //add ADVANCE CUSTOM FIELD to WORDPRESS CORE POST TYPE POST
-// acf_add_local_field_group(array(
-//             	'key' => 'post_group',
-//             	'title' => 'Post Group',
-//             	'fields' => array(
-//             		array(
-//             			'key' => 'radio_button',
-//             			'label' => 'Radio Button',
-//             			'name' => 'radio_button',
-//             			'type' => 'radio',
-//             			'instructions' => '',
-//             			'required' => 0,
-//             			'conditional_logic' => 0,
-//             			'wrapper' => array(
-//             				'width' => '',
-//             				'class' => '',
-//             				'id' => '',
-//             			),
-//             			'choices' => array(
-//             				'Yes' => 'Yes',
-//             				'No' => 'No',
-//             			),
-//             			'allow_null' => 0,
-//             			'other_choice' => 0,
-//             			'default_value' => '',
-//             			'layout' => 'vertical',
-//             			'return_format' => 'value',
-//             			'save_other_choice' => 0,
-//             		),
-//             	),
-//             	'location' => array(
-//             		array(
-//             			array(
-//             				'param' => 'post_type',
-//             				'operator' => '==',
-//             				'value' => 'post',
-//             			),
-//             		),
-//             	),
-//             	'menu_order' => 0,
-//             	'position' => 'normal',
-//             	'style' => 'default',
-//             	'label_placement' => 'top',
-//             	'instruction_placement' => 'label',
-//             	'hide_on_screen' => '',
-//             	'active' => 1,
-//             	'description' => '',
-//             ));
+acf_add_local_field_group(array(
+            	'key' => 'post_group',
+            	'title' => 'Post Group',
+            	'fields' => array(
+            		array(
+            			'key' => 'radio_button',
+            			'label' => 'Radio Button',
+            			'name' => 'radio_button',
+            			'type' => 'radio',
+            			'instructions' => '',
+            			'required' => 0,
+            			'conditional_logic' => 0,
+            			'wrapper' => array(
+            				'width' => '',
+            				'class' => '',
+            				'id' => '',
+            			),
+            			'choices' => array(
+            				'Yes' => 'Yes',
+            				'No' => 'No',
+            			),
+            			'allow_null' => 0,
+            			'other_choice' => 0,
+            			'default_value' => '',
+            			'layout' => 'vertical',
+            			'return_format' => 'value',
+            			'save_other_choice' => 0,
+            		),
+            	),
+            	'location' => array(
+            		array(
+            			array(
+            				'param' => 'post_type',
+            				'operator' => '==',
+            				'value' => 'post',
+            			),
+            		),
+            	),
+            	'menu_order' => 0,
+            	'position' => 'normal',
+            	'style' => 'default',
+            	'label_placement' => 'top',
+            	'instruction_placement' => 'label',
+            	'hide_on_screen' => '',
+            	'active' => 1,
+            	'description' => '',
+            ));
             
-// add_action('acf/init', 'acf_add_local_field_group');
+add_action('acf/init', 'acf_add_local_field_group');

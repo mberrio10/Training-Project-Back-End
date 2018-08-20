@@ -7,20 +7,20 @@ use WPAS\Types\BasePostType;
 class Workout extends BasePostType{
     
     function initialize(){
-
         add_action('acf/init', array($this, 'add_workout_fields'));
     }
 
     function add_workout_fields() {
+
         acf_add_local_field_group(array(
-        	'key' => 'workout_group',
+        	'key' => 'group_5b6a23a0300c6',
         	'title' => 'Workout Custom Fields',
         	'fields' => array(
         		array(
-        			'key' => 'muscle_type',
+        			'key' => 'field_5b6a23a035bc5',
         			'label' => 'Muscle Type',
         			'name' => 'muscle_type',
-        			'type' => 'text',
+        			'type' => 'radio',
         			'instructions' => '',
         			'required' => 0,
         			'conditional_logic' => 0,
@@ -29,14 +29,27 @@ class Workout extends BasePostType{
         				'class' => '',
         				'id' => '',
         			),
+        			'choices' => array(
+        				'Chest' => 'Chest',
+        				'Shoulders' => 'Shoulders',
+        				'Abs' => 'Abs',
+        				'Forearm' => 'Forearm',
+        				'Quads' => 'Quads',
+        				'Biceps' => 'Biceps',
+        				'Triceps' => 'Triceps',
+        				'Calves' => 'Calves',
+        				'Glutes' => 'Glutes',
+        				'Hamstrings' => 'Hamstrings',
+        			),
+        			'allow_null' => 0,
+        			'other_choice' => 0,
         			'default_value' => '',
-        			'placeholder' => '',
-        			'prepend' => '',
-        			'append' => '',
-        			'maxlength' => '',
+        			'layout' => 'vertical',
+        			'return_format' => 'value',
+        			'save_other_choice' => 0,
         		),
         		array(
-        			'key' => 'exercise_type',
+        			'key' => 'field_5b6a23a035ca8',
         			'label' => 'Exercise Type',
         			'name' => 'exercise_type',
         			'type' => 'text',
@@ -55,7 +68,7 @@ class Workout extends BasePostType{
         			'maxlength' => '',
         		),
         		array(
-        			'key' => 'sets_amount',
+        			'key' => 'field_5b6a23a035da6',
         			'label' => 'Sets Amount',
         			'name' => 'sets_amount',
         			'type' => 'text',
@@ -74,7 +87,7 @@ class Workout extends BasePostType{
         			'maxlength' => '',
         		),
         		array(
-        			'key' => 'repetitions_amount',
+        			'key' => 'field_5b6a23a035e57',
         			'label' => 'Repetitions Amount',
         			'name' => 'repetitions_amount',
         			'type' => 'text',
@@ -91,6 +104,40 @@ class Workout extends BasePostType{
         			'prepend' => '',
         			'append' => '',
         			'maxlength' => '',
+        		),
+        		array(
+        			'key' => 'field_5b7afbd84ec82',
+        			'label' => 'Image',
+        			'name' => 'image',
+        			'type' => 'oembed',
+        			'instructions' => '',
+        			'required' => 0,
+        			'conditional_logic' => 0,
+        			'wrapper' => array(
+        				'width' => '',
+        				'class' => '',
+        				'id' => '',
+        			),
+        			'default_value' =>'https://img.youtube.com/vi/XXXXXXXXXX/0.jpg',
+        			'width' => '',
+        			'height' => '',
+        		),
+        		array(
+        			'key' => 'field_5b7afbe44ec83',
+        			'label' => 'Video',
+        			'name' => 'video',
+        			'type' => 'oembed',
+        			'instructions' => '',
+        			'required' => 0,
+        			'conditional_logic' => 0,
+        			'wrapper' => array(
+        				'width' => '',
+        				'class' => '',
+        				'id' => '',
+        			),
+        			'default_value' => 'https://www.youtube.com/embed/XXXXXXXXX',
+        			'width' => '',
+        			'height' => '',
         		),
         	),
         	'location' => array(
@@ -111,6 +158,7 @@ class Workout extends BasePostType{
         	'active' => 1,
         	'description' => '',
         ));
+
     }
     
 }

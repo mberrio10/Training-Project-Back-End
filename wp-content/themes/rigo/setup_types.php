@@ -14,7 +14,7 @@ $typeManager->newType([
     'class' => 'Blog',
     'options' => [
         'supports' =>['title','editor','thumbnail'],
-        'taxonomies' => ['post_tag','category']
+        // 'taxonomies' => ['post_tag','category']
     ]
 ])->register();
     
@@ -23,7 +23,7 @@ $typeManager->newType([
     'class' => 'Workout',
     'options' => [
         'supports' =>['title','editor','thumbnail'],
-        'taxonomies' => ['post_tag','category']
+        // 'taxonomies' => ['post_tag','category']
     ]
 ])->register();
     
@@ -32,6 +32,6 @@ $typeManager->newType([
     'class' => 'Member',
     'options' => [
         'supports' =>['title','editor'],
-        //'taxonomies' => ['post_tag','category']
+        // 'taxonomies' => ['post_tag','category']
     ]
 ])->register();

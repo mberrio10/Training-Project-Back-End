@@ -67,5 +67,6 @@ class Blog extends BasePostType{
         	'description' => '',
         ));
     }
+    
 }
 ?>
