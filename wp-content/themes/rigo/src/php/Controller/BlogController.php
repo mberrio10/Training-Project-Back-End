@@ -1,4 +1,5 @@
 <?php
+
 namespace Rigo\Controller;
 
 use Rigo\Types\Blog;
@@ -6,14 +7,11 @@ use WP_REST_Response;
 
 class BlogController{
     
-    public function getHomeData(){
-        return [
-            'name' => 'Rigoberto'
-        ];
-    }
-    
     public function getAllBlogs(){
-        $query = Blog::all([ 'post_status' => 'publish' ]);
+        $query = Blog::all([
+            'post_status' => 'publish', 
+            'posts_per_page' => 9
+        ]);
         
         if ( $query->have_posts() ) {
         	while ( $query->have_posts() ) {

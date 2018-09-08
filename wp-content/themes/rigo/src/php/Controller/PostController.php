@@ -1,4 +1,5 @@
 <?php
+
 namespace Rigo\Controller;
 
 use Rigo\Types\Post;
@@ -7,7 +8,10 @@ use WP_REST_Response;
 class PostController{
     
     public function getAllPosts(){
-        $query = Post::all([ 'post_status' => 'publish' ]);
+        $query = Post::all([
+                'post_status' => 'publish', 
+                'posts_per_page' => 9
+        ]);
         
         if ( $query->have_posts() ) {
         	while ( $query->have_posts() ) {

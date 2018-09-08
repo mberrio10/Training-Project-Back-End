@@ -1,4 +1,5 @@
 <?php
+
 /**
  * To add new monolytic templates you have to start by instanciating the WPASController
 */

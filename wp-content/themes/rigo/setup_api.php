@@ -16,43 +16,48 @@ $api = new \WPAS\Controller\WPASAPIController([
 */
 
 $api->get([ 
-    'path' => '/post', 
+    'path' => '/posts', 
     'controller' => 'PostController:getAllPosts' 
 ]);
 
 $api->put([ 
-    'path' => '/post', 
+    'path' => '/posts', 
     'controller' => 'PostController:putNewPost' 
 ]);
 
 $api->get([
-    'path' => '/workout', 
+    'path' => '/workouts', 
     'controller' => 'WorkoutController:getAllWorkouts',
     //'capability' => 'activate_plugins'
 ]);
 
 $api->get([ 
-    'path' => '/member', 
+    'path' => '/members', 
     'controller' => 'MemberController:getAllMembers' 
 ]); 
 
-$api->put([ 
-    'path' => '/member', 
-    'controller' => 'MemberController:putNewMember' 
+$api->get([ 
+    'path' => '/members/(?P<id>[\d]+)', 
+    'controller' => 'MemberController:getMember' 
 ]); 
 
+$api->put([ 
+    'path' => '/members', 
+    'controller' => 'MemberController:putNewMember' 
+]);
+
 $api->get([ 
-    'path' => '/blog', 
+    'path' => '/blogs', 
     'controller' => 'BlogController:getAllBlogs' 
 ]);
 
 $api->get([
-    'path' => '/user', 
+    'path' => '/users', 
     'controller' => 'UserController:getAllUsers',
     //'capability' => 'activate_plugins'
 ]);
 
 $api->put([ 
-    'path' => '/user', 
+    'path' => '/users', 
     'controller' => 'UserController:putNewUser' 
 ]);

@@ -30,7 +30,7 @@ class MemberController{
     
     public function putNewMember( $request ){	
         $data = $request->get_json_params();	
-        //print_r( $data) ;	
+        //print_r($data) ;	
         //die;	
         $post_arr = array(	
             'post_title' => $data['first_name'] . ' ' . $data['last_name'],	
@@ -95,5 +95,28 @@ class MemberController{
         }	
     }
     
+    public function getMember( $request ){
+        $id = $request['id'];
+        $query = Member::all([
+            'p' => $id]);
+            
+        if ( $query->have_posts() ) {
+        	while ( $query->have_posts() ) {
+                $query->the_post();
+                
+                //Include the Meta Tags and Values
+                $query->post->meta_keys = get_post_meta($query->post->ID);
+                foreach($query->post->meta_keys as $key => $value){
+                    $query->post->meta_keys[$key] = maybe_unserialize($value[0]);
+                }
+                //Include the Featured Image and Category
+                // $query->post->thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $query->post->ID ), "large" );
+                // $query->post->category = get_the_terms( $query->post->ID, "category" );
+        	}
+        	/* Restore original Post Data */
+        	wp_reset_postdata();
+        }
+        return $query->posts;
+    }
 }
 ?>
