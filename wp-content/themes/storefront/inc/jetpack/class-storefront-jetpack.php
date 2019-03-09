@@ -3,7 +3,6 @@
  * Storefront Jetpack Class
  *
  * @package  storefront
- * @author   WooThemes
  * @since    2.0.0
  */
 
@@ -24,8 +23,8 @@ if ( ! class_exists( 'Storefront_Jetpack' ) ) :
 		 * @since 1.0
 		 */
 		public function __construct() {
-			add_action( 'init',                       array( $this, 'jetpack_setup' ) );
-			add_action( 'wp_enqueue_scripts',         array( $this, 'jetpack_scripts' ), 10 );
+			add_action( 'init', array( $this, 'jetpack_setup' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'jetpack_scripts' ), 10 );
 
 			if ( storefront_is_woocommerce_activated() ) {
 				add_action( 'init', array( $this, 'jetpack_infinite_scroll_wrapper_columns' ) );
@@ -37,40 +36,46 @@ if ( ! class_exists( 'Storefront_Jetpack' ) ) :
 		 * See: http://jetpack.me/support/infinite-scroll/
 		 */
 		public function jetpack_setup() {
-			add_theme_support( 'infinite-scroll', apply_filters( 'storefront_jetpack_infinite_scroll_args', array(
-				'container'      => 'main',
-				'footer'         => 'page',
-				'render'         => array( $this, 'jetpack_infinite_scroll_loop' ),
-				'footer_widgets' => array(
-					'footer-1',
-					'footer-2',
-					'footer-3',
-					'footer-4',
-				),
-			) ) );
+			add_theme_support(
+				'infinite-scroll', apply_filters(
+					'storefront_jetpack_infinite_scroll_args', array(
+						'container'      => 'main',
+						'footer'         => 'page',
+						'render'         => array( $this, 'jetpack_infinite_scroll_loop' ),
+						'footer_widgets' => array(
+							'footer-1',
+							'footer-2',
+							'footer-3',
+							'footer-4',
+						),
+					)
+				)
+			);
 		}
 
 		/**
 		 * A loop used to display content appended using Jetpack infinite scroll
+		 *
 		 * @return void
 		 */
 		public function jetpack_infinite_scroll_loop() {
 			do_action( 'storefront_jetpack_infinite_scroll_before' );
 
-			if ( storefront_is_product_archive() ) {
+			if ( function_exists( 'storefront_is_product_archive' ) && storefront_is_product_archive() ) {
 				do_action( 'storefront_jetpack_product_infinite_scroll_before' );
 				woocommerce_product_loop_start();
 			}
 
-			while ( have_posts() ) : the_post();
-				if ( storefront_is_product_archive() ) {
+			while ( have_posts() ) :
+				the_post();
+				if ( function_exists( 'storefront_is_product_archive' ) && storefront_is_product_archive() ) {
 					wc_get_template_part( 'content', 'product' );
 				} else {
 					get_template_part( 'content', get_post_format() );
 				}
 			endwhile; // end of the loop.
 
-			if ( storefront_is_product_archive() ) {
+			if ( function_exists( 'storefront_is_product_archive' ) && storefront_is_product_archive() ) {
 				woocommerce_product_loop_end();
 				do_action( 'storefront_jetpack_product_infinite_scroll_after' );
 			}
@@ -80,6 +85,7 @@ if ( ! class_exists( 'Storefront_Jetpack' ) ) :
 
 		/**
 		 * Adds columns wrapper to content appended by Jetpack infinite scroll
+		 *
 		 * @return void
 		 */
 		public function jetpack_infinite_scroll_wrapper_columns() {

@@ -2,7 +2,6 @@
 /**
  * Storefront Class
  *
- * @author   WooThemes
  * @since    2.0.0
  * @package  storefront
  */
@@ -24,14 +23,16 @@ if ( ! class_exists( 'Storefront' ) ) :
 		 * @since 1.0
 		 */
 		public function __construct() {
-			add_action( 'after_setup_theme',          array( $this, 'setup' ) );
-			add_action( 'widgets_init',               array( $this, 'widgets_init' ) );
-			add_action( 'wp_enqueue_scripts',         array( $this, 'scripts' ),       10 );
-			add_action( 'wp_enqueue_scripts',         array( $this, 'child_scripts' ), 30 ); // After WooCommerce.
-			add_filter( 'body_class',                 array( $this, 'body_classes' ) );
-			add_filter( 'wp_page_menu_args',          array( $this, 'page_menu_args' ) );
+			add_action( 'after_setup_theme', array( $this, 'setup' ) );
+			add_action( 'widgets_init', array( $this, 'widgets_init' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ), 10 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'child_scripts' ), 30 ); // After WooCommerce.
+			add_action( 'enqueue_block_editor_assets', array( $this, 'block_editor_assets' ) );
+			add_filter( 'body_class', array( $this, 'body_classes' ) );
+			add_filter( 'wp_page_menu_args', array( $this, 'page_menu_args' ) );
 			add_filter( 'navigation_markup_template', array( $this, 'navigation_markup_template' ) );
-			add_action( 'enqueue_embed_scripts',      array( $this, 'print_embed_styles' ) );
+			add_action( 'enqueue_embed_scripts', array( $this, 'print_embed_styles' ) );
+			add_filter( 'block_editor_settings', array( $this, 'custom_editor_settings' ), 10, 2 );
 		}
 
 		/**
@@ -49,7 +50,7 @@ if ( ! class_exists( 'Storefront' ) ) :
 			 */
 
 			// Loads wp-content/languages/themes/storefront-it_IT.mo.
-			load_theme_textdomain( 'storefront', trailingslashit( WP_LANG_DIR ) . 'themes/' );
+			load_theme_textdomain( 'storefront', trailingslashit( WP_LANG_DIR ) . 'themes' );
 
 			// Loads wp-content/themes/child-theme-name/languages/it_IT.mo.
 			load_theme_textdomain( 'storefront', get_stylesheet_directory() . '/languages' );
@@ -70,72 +71,124 @@ if ( ! class_exists( 'Storefront' ) ) :
 			add_theme_support( 'post-thumbnails' );
 
 			/**
-			 * Enable support for site logo
+			 * Enable support for site logo.
 			 */
-			add_theme_support( 'custom-logo', apply_filters( 'storefront_custom_logo_args', array(
-				'height'      => 110,
-				'width'       => 470,
-				'flex-width'  => true,
-				'flex-height' => true,
-			) ) );
+			add_theme_support(
+				'custom-logo', apply_filters(
+					'storefront_custom_logo_args', array(
+						'height'      => 110,
+						'width'       => 470,
+						'flex-width'  => true,
+						'flex-height' => true,
+					)
+				)
+			);
 
-			// This theme uses wp_nav_menu() in two locations.
-			register_nav_menus( apply_filters( 'storefront_register_nav_menus', array(
-				'primary'   => __( 'Primary Menu', 'storefront' ),
-				'secondary' => __( 'Secondary Menu', 'storefront' ),
-				'handheld'  => __( 'Handheld Menu', 'storefront' ),
-			) ) );
+			/**
+			 * Register menu locations.
+			 */
+			register_nav_menus(
+				apply_filters(
+					'storefront_register_nav_menus', array(
+						'primary'   => __( 'Primary Menu', 'storefront' ),
+						'secondary' => __( 'Secondary Menu', 'storefront' ),
+						'handheld'  => __( 'Handheld Menu', 'storefront' ),
+					)
+				)
+			);
 
 			/*
 			 * Switch default core markup for search form, comment form, comments, galleries, captions and widgets
 			 * to output valid HTML5.
 			 */
-			add_theme_support( 'html5', apply_filters( 'storefront_html5_args', array(
-				'search-form',
-				'comment-form',
-				'comment-list',
-				'gallery',
-				'caption',
-				'widgets',
-			) ) );
+			add_theme_support(
+				'html5', apply_filters(
+					'storefront_html5_args', array(
+						'search-form',
+						'comment-form',
+						'comment-list',
+						'gallery',
+						'caption',
+						'widgets',
+					)
+				)
+			);
 
-			// Setup the WordPress core custom background feature.
-			add_theme_support( 'custom-background', apply_filters( 'storefront_custom_background_args', array(
-				'default-color' => apply_filters( 'storefront_default_background_color', 'ffffff' ),
-				'default-image' => '',
-			) ) );
+			/**
+			 * Setup the WordPress core custom background feature.
+			 */
+			add_theme_support(
+				'custom-background', apply_filters(
+					'storefront_custom_background_args', array(
+						'default-color' => apply_filters( 'storefront_default_background_color', 'ffffff' ),
+						'default-image' => '',
+					)
+				)
+			);
+
+			/**
+			 * Setup the WordPress core custom header feature.
+			 */
+			add_theme_support(
+				'custom-header', apply_filters(
+					'storefront_custom_header_args', array(
+						'default-image' => '',
+						'header-text'   => false,
+						'width'         => 1950,
+						'height'        => 500,
+						'flex-width'    => true,
+						'flex-height'   => true,
+					)
+				)
+			);
 
 			/**
 			 *  Add support for the Site Logo plugin and the site logo functionality in JetPack
 			 *  https://github.com/automattic/site-logo
 			 *  http://jetpack.me/
 			 */
-			add_theme_support( 'site-logo', apply_filters( 'storefront_site_logo_args', array(
-				'size' => 'full'
-			) ) );
-
-			// Declare WooCommerce support.
-			add_theme_support( 'woocommerce', apply_filters( 'storefront_woocommerce_args', array(
-				'single_image_width'    => 416,
-				'thumbnail_image_width' => 324,
-				'product_grid'          => array(
-					'default_columns' => 3,
-					'default_rows'    => 4,
-					'min_columns'     => 1,
-					'max_columns'     => 6,
-					'min_rows'        => 1
+			add_theme_support(
+				'site-logo', apply_filters(
+					'storefront_site_logo_args', array(
+						'size' => 'full',
+					)
 				)
-			) ) );
+			);
 
-			add_theme_support( 'wc-product-gallery-zoom' );
-			add_theme_support( 'wc-product-gallery-lightbox' );
-			add_theme_support( 'wc-product-gallery-slider' );
-
-			// Declare support for title theme feature.
+			/**
+			 * Declare support for title theme feature.
+			 */
 			add_theme_support( 'title-tag' );
 
-			// Declare support for selective refreshing of widgets.
+			/**
+			 * Declare support for selective refreshing of widgets.
+			 */
 			add_theme_support( 'customize-selective-refresh-widgets' );
+
+			/**
+			 * Add support for Block Styles.
+			 */
+			add_theme_support( 'wp-block-styles' );
+
+			/**
+			 * Add support for full and wide align images.
+			 */
+			add_theme_support( 'align-wide' );
+
+			/**
+			 * Add support for editor styles.
+			 */
+			add_theme_support( 'editor-styles' );
+
+			/**
+			 * Enqueue editor styles.
+			 */
+			add_editor_style( array( 'assets/css/base/gutenberg-editor.css', $this->google_fonts() ) );
+
+			/**
+			 * Add support for responsive embedded content.
+			 */
+			add_theme_support( 'responsive-embeds' );
 		}
 
 		/**
@@ -145,9 +198,9 @@ if ( ! class_exists( 'Storefront' ) ) :
 		 */
 		public function widgets_init() {
 			$sidebar_args['sidebar'] = array(
-				'name'          => __( 'Sidebar', 'storefront' ),
-				'id'            => 'sidebar-1',
-				'description'   => ''
+				'name'        => __( 'Sidebar', 'storefront' ),
+				'id'          => 'sidebar-1',
+				'description' => '',
 			);
 
 			$sidebar_args['header'] = array(
@@ -164,11 +217,17 @@ if ( ! class_exists( 'Storefront' ) ) :
 					$footer_n = $region + $regions * ( $row - 1 ); // Defines footer sidebar ID.
 					$footer   = sprintf( 'footer_%d', $footer_n );
 
-					if ( 1 == $rows ) {
+					if ( 1 === $rows ) {
+						/* translators: 1: column number */
 						$footer_region_name = sprintf( __( 'Footer Column %1$d', 'storefront' ), $region );
+
+						/* translators: 1: column number */
 						$footer_region_description = sprintf( __( 'Widgets added here will appear in column %1$d of the footer.', 'storefront' ), $region );
 					} else {
+						/* translators: 1: row number, 2: column number */
 						$footer_region_name = sprintf( __( 'Footer Row %1$d - Column %2$d', 'storefront' ), $row, $region );
+
+						/* translators: 1: column number, 2: row number */
 						$footer_region_description = sprintf( __( 'Widgets added here will appear in column %1$d of footer row %2$d.', 'storefront' ), $region, $row );
 					}
 
@@ -224,24 +283,16 @@ if ( ! class_exists( 'Storefront' ) ) :
 			wp_enqueue_style( 'storefront-style', get_template_directory_uri() . '/style.css', '', $storefront_version );
 			wp_style_add_data( 'storefront-style', 'rtl', 'replace' );
 
+			wp_enqueue_style( 'storefront-gutenberg-blocks', get_template_directory_uri() . '/assets/css/base/gutenberg-blocks.css', '', $storefront_version );
+			wp_style_add_data( 'storefront-gutenberg-blocks', 'rtl', 'replace' );
+
 			wp_enqueue_style( 'storefront-icons', get_template_directory_uri() . '/assets/css/base/icons.css', '', $storefront_version );
 			wp_style_add_data( 'storefront-icons', 'rtl', 'replace' );
 
 			/**
 			 * Fonts
 			 */
-			$google_fonts = apply_filters( 'storefront_google_font_families', array(
-				'source-sans-pro' => 'Source+Sans+Pro:400,300,300italic,400italic,600,700,900',
-			) );
-
-			$query_args = array(
-				'family' => implode( '|', $google_fonts ),
-				'subset' => urlencode( 'latin,latin-ext' ),
-			);
-
-			$fonts_url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
-
-			wp_enqueue_style( 'storefront-fonts', $fonts_url, array(), null );
+			wp_enqueue_style( 'storefront-fonts', $this->google_fonts(), array(), null );
 
 			/**
 			 * Scripts
@@ -267,6 +318,48 @@ if ( ! class_exists( 'Storefront' ) ) :
 			if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 				wp_enqueue_script( 'comment-reply' );
 			}
+
+			wp_enqueue_script( 'jquery-pep', get_template_directory_uri() . '/assets/js/vendor/pep.min.js', array(), '0.4.3', true );
+		}
+
+		/**
+		 * Register Google fonts.
+		 *
+		 * @since 2.4.0
+		 * @return string Google fonts URL for the theme.
+		 */
+		public function google_fonts() {
+			$google_fonts = apply_filters(
+				'storefront_google_font_families', array(
+					'source-sans-pro' => 'Source+Sans+Pro:400,300,300italic,400italic,600,700,900',
+				)
+			);
+
+			$query_args = array(
+				'family' => implode( '|', $google_fonts ),
+				'subset' => rawurlencode( 'latin,latin-ext' ),
+			);
+
+			$fonts_url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
+
+			return $fonts_url;
+		}
+
+		/**
+		 * Enqueue supplemental block editor assets.
+		 *
+		 * @since 2.4.0
+		 */
+		public function block_editor_assets() {
+			global $storefront_version;
+
+			// Styles.
+			wp_enqueue_style( 'storefront-editor-block-styles', get_theme_file_uri( '/assets/css/base/gutenberg-blocks.css' ), false, $storefront_version, 'all' );
+			wp_style_add_data( 'storefront-editor-block-styles', 'rtl', 'replace' );
+
+			// JS.
+			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+			wp_enqueue_script( 'storefront-editor', get_template_directory_uri() . '/assets/js/editor' . $suffix . '.js', array( 'wp-data', 'wp-dom-ready', 'wp-edit-post' ), $storefront_version, true );
 		}
 
 		/**
@@ -301,14 +394,17 @@ if ( ! class_exists( 'Storefront' ) ) :
 		 * @return array
 		 */
 		public function body_classes( $classes ) {
-			// Adds a class of group-blog to blogs with more than 1 published author.
+			// Adds a class to blogs with more than 1 published author.
 			if ( is_multi_author() ) {
 				$classes[] = 'group-blog';
 			}
 
-			if ( ! function_exists( 'woocommerce_breadcrumb' ) ) {
-				$classes[]	= 'no-wc-breadcrumb';
-			}
+			/**
+			 * Adds a class when WooCommerce is not active.
+			 *
+			 * @todo Refactor child themes to remove dependency on this class.
+			 */
+			$classes[] = 'no-wc-breadcrumb';
 
 			/**
 			 * What is this?!
@@ -326,17 +422,42 @@ if ( ! class_exists( 'Storefront' ) ) :
 				$classes[] = 'storefront-full-width-content';
 			}
 
-			// Add class when using homepage template + featured image
+			// Add class when using homepage template + featured image.
 			if ( is_page_template( 'template-homepage.php' ) && has_post_thumbnail() ) {
 				$classes[] = 'has-post-thumbnail';
 			}
 
-			// Add class when Secondary Navigation is in use
+			// Add class when Secondary Navigation is in use.
 			if ( has_nav_menu( 'secondary' ) ) {
 				$classes[] = 'storefront-secondary-navigation';
 			}
 
+			// Add class if align-wide is supported.
+			if ( current_theme_supports( 'align-wide' ) ) {
+				$classes[] = 'storefront-align-wide';
+			}
+
 			return $classes;
+		}
+
+		/**
+		 * Adds a custom parameter to the editor settings that is used
+		 * to track whether the main sidebar has widgets.
+		 *
+		 * @since 2.4.3
+		 * @param array   $settings Default editor settings.
+		 * @param WP_Post $post Post being edited.
+		 *
+		 * @return array Filtered block editor settings.
+		 */
+		public function custom_editor_settings( $settings, $post ) {
+			$settings['mainSidebarActive'] = false;
+
+			if ( is_active_sidebar( 'sidebar-1' ) ) {
+				$settings['mainSidebarActive'] = true;
+			}
+
+			return $settings;
 		}
 
 		/**

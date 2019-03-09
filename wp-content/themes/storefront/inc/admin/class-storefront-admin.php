@@ -2,7 +2,6 @@
 /**
  * Storefront Admin Class
  *
- * @author   WooThemes
  * @package  storefront
  * @since    2.0.0
  */
@@ -23,8 +22,8 @@ if ( ! class_exists( 'Storefront_Admin' ) ) :
 		 * @since 1.0
 		 */
 		public function __construct() {
-			add_action( 'admin_menu', 				array( $this, 'welcome_register_menu' ) );
-			add_action( 'admin_enqueue_scripts', 	array( $this, 'welcome_style' ) );
+			add_action( 'admin_menu', array( $this, 'welcome_register_menu' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'welcome_style' ) );
 		}
 
 		/**
@@ -59,9 +58,9 @@ if ( ! class_exists( 'Storefront_Admin' ) ) :
 		 * @since 1.0.0
 		 */
 		public function storefront_welcome_screen() {
-			require_once( ABSPATH . 'wp-load.php' );
-			require_once( ABSPATH . 'wp-admin/admin.php' );
-			require_once( ABSPATH . 'wp-admin/admin-header.php' );
+			require_once ABSPATH . 'wp-load.php';
+			require_once ABSPATH . 'wp-admin/admin.php';
+			require_once ABSPATH . 'wp-admin/admin-header.php';
 
 			global $storefront_version;
 			?>
@@ -88,7 +87,8 @@ if ( ! class_exists( 'Storefront_Admin' ) ) :
 					$referrer = wp_get_referer();
 
 					if ( strpos( $referrer, 'sf_starter_content' ) !== false ) {
-						echo '<h1>' . sprintf( esc_attr__( 'Setup complete %sYour Storefront adventure begins now 🚀%s ', 'storefront' ), '<span>', '</span>' ) . '</h1>';
+						/* translators: 1: HTML, 2: HTML */
+						echo '<h1>' . sprintf( esc_attr__( 'Setup complete %1$sYour Storefront adventure begins now 🚀%2$s ', 'storefront' ), '<span>', '</span>' ) . '</h1>';
 						echo '<p>' . esc_attr__( 'One more thing... You might be interested in the following Storefront extensions and designs.', 'storefront' ) . '</p>';
 					} else {
 						echo '<p>' . esc_attr__( 'Hello! You might be interested in the following Storefront extensions and designs.', 'storefront' ) . '</p>';
@@ -140,7 +140,10 @@ if ( ! class_exists( 'Storefront_Admin' ) ) :
 
 				<div class="automattic">
 					<p>
-					<?php printf( esc_html__( 'An %s project', 'storefront' ), '<a href="https://automattic.com/"><img src="' . esc_url( get_template_directory_uri() ) . '/assets/images/admin/welcome-screen/automattic.png" alt="Automattic" /></a>' ); ?>
+					<?php
+						/* translators: %s: Automattic branding */
+						printf( esc_html__( 'An %s project', 'storefront' ), '<a href="https://automattic.com/"><img src="' . esc_url( get_template_directory_uri() ) . '/assets/images/admin/welcome-screen/automattic.png" alt="Automattic" /></a>' );
+					?>
 					</p>
 				</div>
 			</div>
@@ -153,7 +156,7 @@ if ( ! class_exists( 'Storefront_Admin' ) ) :
 		 * @since 1.0.0
 		 */
 		public function welcome_intro() {
-			require_once( get_template_directory() . '/inc/admin/welcome-screen/component-intro.php' );
+			require_once get_template_directory() . '/inc/admin/welcome-screen/component-intro.php';
 		}
 
 		/**
@@ -166,31 +169,31 @@ if ( ! class_exists( 'Storefront_Admin' ) ) :
 		public function install_plugin_button( $plugin_slug, $plugin_file ) {
 			if ( current_user_can( 'install_plugins' ) && current_user_can( 'activate_plugins' ) ) {
 				if ( is_plugin_active( $plugin_slug . '/' . $plugin_file ) ) {
-					/**
-					 * The plugin is already active
-					 */
+					// The plugin is already active.
 					$button = array(
 						'message' => esc_attr__( 'Activated', 'storefront' ),
 						'url'     => '#',
 						'classes' => 'disabled',
 					);
-				} elseif ( $url = $this->_is_plugin_installed( $plugin_slug ) ) {
-					/**
-					 * The plugin exists but isn't activated yet.
-					 */
+				} elseif ( $this->_is_plugin_installed( $plugin_slug ) ) {
+					$url = $this->_is_plugin_installed( $plugin_slug );
+
+					// The plugin exists but isn't activated yet.
 					$button = array(
 						'message' => esc_attr__( 'Activate', 'storefront' ),
 						'url'     => $url,
 						'classes' => 'activate-now',
 					);
 				} else {
-					/**
-					 * The plugin doesn't exist.
-					 */
-					$url = wp_nonce_url( add_query_arg( array(
-						'action' => 'install-plugin',
-						'plugin' => $plugin_slug,
-					), self_admin_url( 'update.php' ) ), 'install-plugin_' . $plugin_slug );
+					// The plugin doesn't exist.
+					$url    = wp_nonce_url(
+						add_query_arg(
+							array(
+								'action' => 'install-plugin',
+								'plugin' => $plugin_slug,
+							), self_admin_url( 'update.php' )
+						), 'install-plugin_' . $plugin_slug
+					);
 					$button = array(
 						'message' => esc_attr__( 'Install now', 'storefront' ),
 						'url'     => $url,
@@ -215,10 +218,14 @@ if ( ! class_exists( 'Storefront_Admin' ) ) :
 				if ( ! empty( $plugins ) ) {
 					$keys        = array_keys( $plugins );
 					$plugin_file = $plugin_slug . '/' . $keys[0];
-					$url         = wp_nonce_url( add_query_arg( array(
-						'action' => 'activate',
-						'plugin' => $plugin_file,
-					), admin_url( 'plugins.php' ) ), 'activate-plugin_' . $plugin_file );
+					$url         = wp_nonce_url(
+						add_query_arg(
+							array(
+								'action' => 'activate',
+								'plugin' => $plugin_file,
+							), admin_url( 'plugins.php' )
+						), 'activate-plugin_' . $plugin_file
+					);
 					return $url;
 				}
 			}
@@ -230,7 +237,7 @@ if ( ! class_exists( 'Storefront_Admin' ) ) :
 		 * @since 1.5.2
 		 */
 		public function welcome_enhance() {
-			require_once( get_template_directory() . '/inc/admin/welcome-screen/component-enhance.php' );
+			require_once get_template_directory() . '/inc/admin/welcome-screen/component-enhance.php';
 		}
 
 		/**
@@ -239,7 +246,7 @@ if ( ! class_exists( 'Storefront_Admin' ) ) :
 		 * @since 1.5.2
 		 */
 		public function welcome_contribute() {
-			require_once( get_template_directory() . '/inc/admin/welcome-screen/component-contribute.php' );
+			require_once get_template_directory() . '/inc/admin/welcome-screen/component-contribute.php';
 		}
 
 		/**

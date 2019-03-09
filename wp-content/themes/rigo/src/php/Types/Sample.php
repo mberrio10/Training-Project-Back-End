@@ -67,4 +67,5 @@ class Sample extends BasePostType{
     //     ));
     // }
 }
+
 ?>

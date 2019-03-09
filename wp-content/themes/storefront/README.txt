@@ -1,12 +1,12 @@
 === Storefront ===
 Contributors: automattic, tiagonoronha, jameskoster
 Requires at least: 4.7
-Tested up to: 4.9
-Stable tag: 2.3.3
-Version: 2.3.3
+Tested up to: 5.0
+Stable tag: 2.4.3
+Version: 2.4.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Tags: e-commerce, two-columns, left-sidebar, right-sidebar, custom-background, custom-colors, custom-header, custom-menu, featured-images, full-width-template, threaded-comments, accessibility-ready, rtl-language-support, footer-widgets, sticky-post, theme-options
+Tags: e-commerce, two-columns, left-sidebar, right-sidebar, custom-background, custom-colors, custom-header, custom-menu, featured-images, full-width-template, threaded-comments, accessibility-ready, rtl-language-support, footer-widgets, sticky-post, theme-options, editor-style
 
 Storefront is the perfect theme for your next WooCommerce project.
 
@@ -48,6 +48,51 @@ To the best of our knowledge, Google doesn’t track nor share end user data.
 Privacy Policy for the Google Fonts API: https://developers.google.com/fonts/faq#what_does_using_the_google_fonts_api_mean_for_the_privacy_of_my_users
 
 == Changelog ==
+
+= 2.4.3 - 2019-02-05 =
+* Feature - Replicate Storefront's layout logic in the block editor. Wide and Full-width options are made available only if supported.
+* Enhancement - Product pagination is now circular and skips hidden products.
+* Tweak - Remove unused variables from `inc/customizer/class-storefront-customizer.php`.
+* Tweak - Refactored "Posted on" section in `storefront_post_meta()`.
+* Tweak - Standardize mixing of static/non static function calls in the `Storefront_Customizer` class.
+* Tweak - Remove padding and transition styles from post navigation.
+* Fix - Remove hard coded colors for Blocks from `gutenberg-blocks.css` and use colors set in the Customizer instead.
+* Fix - Clear floats on alignwide and alignfull blocks.
+* Fix - When outputting custom styling for extensions, check if the object `$storefront` is in the expected format and has right properties.
+* Dev - Babel added as a dependency.
+* Dev - New `assets/js/src/editor.js` file.
+* Dev - Revert filter name. `storefront_woocommerce_customizer_css` reverted to `storefront_customizer_woocommerce_css`.
+* Dev - New hooks added to post header section: `storefront_post_header_before`, `storefront_post_header_after`.
+
+= 2.4.2 - 2018-12-11 =
+* Fix - Load in `functions.php` missing `storefront-woocommerce-functions.php` file required for compatibility with Jetpack's Infinite Scroll feature.
+* Dev - Update order of Sass import files in `gutenberg-blocks.scss` and `gutenberg-editor.scss` to ensure that these are compiled correctly.
+* Dev - Update Grunt tasks.
+
+= 2.4.1 - 2018-12-06 =
+* Fix - Fatal error caused by a method incorrectly defined as static.
+* Fix - Remove unnecessary trailing slash in the first `load_theme_textdomain()` call.
+
+= 2.4.0 - 2018-12-06 =
+* Feature - Add support for the new blocks introduced in WordPress 5.0.
+* Feature - Gutenberg editor styles.
+* Feature - Redesign blog post templates.
+* Tweak - Remove legacy Jetpack logo feature.
+* Tweak - Move all WooCommerce related code inside of the `inc/woocommerce` directory.
+* Fix - Allow zooming and scaling for improved accessibility.
+* Fix - Multiple code standards improvements.
+
+= 2.3.5 - 2018-10-24 =
+* Fix - Use Pointer Events API for consistency across touchscreen devices when interacting with menus.
+* Fix - Removed CSS rule that was incorrectly changing the width of image logos to 100%.
+
+= 2.3.4 - 2018-10-11 =
+* Tweak - Introduced new styles for enhanced compatibility with Composite Products 3.14.0 and Product Bundles 5.8.0.
+* Fix - Improved touch support for dropdowns.
+* Fix - Added missing RTL support to the Guided Tour in the Customizer.
+* Fix - Added a fix to prevent starter content from showing up if not entering the customizer through the NUX.
+* Fix - Fixed clearing of cart item rows on handheld screens.
+* Fix - Changed store notice `z-index` value to prevent overlap with the handheld footer bar.
 
 = 2.3.3 - 2018-07-18 =
 * Tweak - Removed `user-scalable=no` from the viewport meta tag to allow for zooming on mobile browsers.
@@ -127,7 +172,7 @@ Privacy Policy for the Google Fonts API: https://developers.google.com/fonts/faq
 * Tweak - Added vcard markup to template.
 * Tweak - Improved My Account Payment Methods styles.
 * Tweak - Improved the Bookings calendar styles.
-* Tweak - Removed jQuery dependency. Kudos [@valdrinkoshi](https://github.com/valdrinkoshi). 
+* Tweak - Removed jQuery dependency. Kudos [@valdrinkoshi](https://github.com/valdrinkoshi).
 * Tweak - Added "Navigation menus" step to Guided tour.
 * Tweak - Guided tour in the Customizer is now shown to all sites.
 * Dev - Removed non-standard outdated CSS. Kudos [@ElectricFeet](https://github.com/ElectricFeet).
